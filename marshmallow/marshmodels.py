@@ -1,33 +1,32 @@
-class AutoMarshallingModel:
+class MarshModel:
 
-    def serialize(self, format_type):
-        serialization_exception = None
+    def serialize(self, format):
         try:
-            serialize_method = '_obj_to_{0}'.format(format_type)
-            return getattr(self, serialize_method)()
-        except Exception as serialization_exception:
+            #the format is here to provide support for xml later
+            serialize_function = '_object_to_{0}'.format(format)
+            return getattr(self, serialize_function)()
+        except:
             raise Exception("Failed to Serialize")
 
         return None
 
     @classmethod
-    def deserialize(cls, serialized_str, format_type):
-        model_object = None
-        deserialization_exception = None
+    def deserialize(cls, serialized_str, format):
+        model_obj = None
         if serialized_str and len(serialized_str) > 0:
             try:
-                deserialize_method = '_{0}_to_obj'.format(format_type)
-                model_object = getattr(cls, deserialize_method)(serialized_str)
-            except Exception as deserialization_exception:
+                deserialize_function = '_{0}_to_object'.format(format)
+                model_obj = getattr(cls, deserialize_function)(serialized_str)
+            except:
                 raise Exception("Failed to Deserialize")
 
-        return model_object
+        return model_obj
 
-    # Serialization
-    def _obj_to_json(self):
-        raise NotImplementedError
+    # Function For Serialization
+    def _object_to_json(self):
+        raise Exception("No implementation found")
 
-    # Deserialization
+    # Function For Deserialization
     @classmethod
-    def _json_to_obj(cls, serialized_str):
-        raise NotImplementedError
+    def _json_to_object(cls, serialized_str):
+        raise Exception("No implementation found")

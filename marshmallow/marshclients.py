@@ -1,10 +1,10 @@
 import requests
 
 
-class HTTPClientBase:
+class RequestClientBase:
 
     def __init__(self):
-        super(HTTPClientBase, self).__init__()
+        super(RequestClientBase, self).__init__()
 
     def request(self, method, url, **kwargs):
         try:
@@ -12,43 +12,35 @@ class HTTPClientBase:
         except Exception as e:
             raise e
 
+    def head(self, url, **kwargs):
+        return self.request('HEAD', url, **kwargs)
+
     def put(self, url, **kwargs):
-        """ HTTP PUT request """
         return self.request('PUT', url, **kwargs)
 
     def copy(self, url, **kwargs):
-        """ HTTP COPY request """
         return self.request('COPY', url, **kwargs)
 
+    def patch(self, url, **kwargs):
+        return self.request('PATCH', url, **kwargs)
+
     def post(self, url, data=None, **kwargs):
-        """ HTTP POST request """
         return self.request('POST', url, data=data, **kwargs)
 
     def get(self, url, **kwargs):
-        """ HTTP GET request """
         return self.request('GET', url, **kwargs)
 
-    def head(self, url, **kwargs):
-        """ HTTP HEAD request """
-        return self.request('HEAD', url, **kwargs)
-
     def delete(self, url, **kwargs):
-        """ HTTP DELETE request """
         return self.request('DELETE', url, **kwargs)
 
     def options(self, url, **kwargs):
-        """ HTTP OPTIONS request """
         return self.request('OPTIONS', url, **kwargs)
 
-    def patch(self, url, **kwargs):
-        """ HTTP PATCH request """
-        return self.request('PATCH', url, **kwargs)
 
-
-class HTTPClient(HTTPClientBase):
+class RequestClient(RequestClientBase):
 
     def __init__(self):
-        super(HTTPClient, self).__init__()
+        super(RequestClient, self).__init__()
         self.default_headers = {}
 
     def request(
@@ -58,7 +50,6 @@ class HTTPClient(HTTPClientBase):
         kwargs = kwargs if (
             kwargs is not None) else {}
 
-        #defaults
         params = params if params is not None else {}
         verify = False
 
@@ -77,15 +68,14 @@ class HTTPClient(HTTPClientBase):
                 del kwargs[key]
 
         kwargs = dict(
-            {'headers': headers, 'params': params, 'verify': verify,
-             'data': data}, **kwargs)
+            {'headers': headers, 'params': params, 'data': data}, **kwargs)
 
         # Run request
-        return super(HTTPClient, self).request(
+        return super(RequestClient, self).request(
             method, url, **kwargs)
 
 
-class MarshHTTPClient(HTTPClient):
+class MarshClient(RequestClient):
 
     def __init__(self, format_for_serializing=None, format_for_deserializing=None):
         self.format_for_serializing = format_for_serializing
@@ -104,18 +94,18 @@ class MarshHTTPClient(HTTPClient):
                 **kwargs)
 
         # Run request
-        response = super(MarshHTTPClient, self).request(
+        response = super(MarshClient, self).request(
             method, url, headers=headers, params=params, data=data,
             kwargs=kwargs)
 
-        response.request.__dict__['entity'] = None
-        response.__dict__['entity'] = None
+        response.request.__dict__['object'] = None
+        response.__dict__['object'] = None
 
         if response.request is not None:
-            response.request.__dict__['entity'] = request_entity
+            response.request.__dict__['object'] = request_entity
 
         if response_entity_type is not None:
-            response.__dict__['entity'] = response_entity_type.deserialize(
+            response.__dict__['object'] = response_entity_type.deserialize(
                 response.content,
                 self.format_for_deserializing)
 
