@@ -57,7 +57,7 @@ Below diagram should give a more clear idea of what's going on:
 
 ![MarshMallow](https://github.com/jaydeepc/marshmallow_example/blob/master/MarshMallow.png)
 
-So, what happens here is the Tests only understands the language of Object and hence with that language, makes a call to the client. The Client then uses the model where the `_object_to_json` is implemented to get the payload in JSON form and then makes a Request to the API, which understands only JSON language (or XML). The API the returns the JSON response back to Client and client asks model to user `_json_to_object` to convert it to object and gives it back to the test.
+So, what happens here is, the Tests only understands the language of Object and hence with that language, makes a call to the client. The Client then uses the model where the `_object_to_json` is implemented to get the payload in JSON form and then makes a Request to the API, which understands only JSON language (or XML). The API the returns the JSON response back to Client and client asks model to user `_json_to_object` to convert it to object and gives it back to the test.
 
 
 
