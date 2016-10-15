@@ -27,12 +27,12 @@ def print_cafe_mug():
                      "\t\t    |_________________|",
                      ]))
     print("********************************************************")
-    print("Congratulations, MarshMallow is now Installed")
+    print("Congratulations, maRshEST is now Installed")
     print("********************************************************")
 
 setup(
-  name = 'marshmallow',
-  packages = ['marshmallow'],
+  name = 'marshest',
+  packages = ['marshest'],
   version = '0.1',
   description = 'A library for Marshalling JSON requests',
   author = 'Jaydeep Chakrabarty',
