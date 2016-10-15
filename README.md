@@ -2,6 +2,8 @@
 [![PyPI version](https://badge.fury.io/py/marshest.svg)](https://badge.fury.io/py/marshest)
 #maRshEST
 
+[![Join the chat at https://gitter.im/marshest/Lobby](https://badges.gitter.im/marshest/Lobby.svg)](https://gitter.im/marshest/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 maRshEST is mainly a simple marshalling model that can be used to serialize and de-serialize RESTful requests/responses. (JSON only as of now). Also, it provides a wrapper at the top of Python's [requests](http://docs.python-requests.org/en/master/) library, integrated with the MarshMallow base models. 
 
 **maRshEST** is created mainly for performing automated testing of REST APIs.
