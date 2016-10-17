@@ -33,11 +33,11 @@ def print_cafe_mug():
 setup(
   name = 'marshest',
   packages = ['marshest'],
-  version = '0.1',
+  version = '0.1.1',
   description = 'A library for Marshalling JSON requests',
   author = 'Jaydeep Chakrabarty',
   author_email = 'jaydeepc@thoughtworks.com',
-  install_requires=['request'],
+  install_requires=['requests'],
   url = 'https://github.com/jaydeepc/marshmallow',
   download_url = 'https://github.com/jaydeepc/marshmallow/tarball/0.1',
   keywords = ['testing', 'marshalling', 'json', 'restapi', 'api', 'automation', 'functionaltesting'],
